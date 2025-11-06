@@ -1,7 +1,17 @@
 import { Link } from 'react-router-dom';
 import { ShoppingBag, Users, Heart, Info } from 'lucide-react';
+import { useEffect } from 'react';
 
 export default function Navigation() {
+  useEffect(() => {
+    if (window.BlkXLoginWidget) {
+      window.BlkXLoginWidget.init({
+        apiBase: 'https://blkxchange-backend.onrender.com',
+        redirectAfterLogin: 'https://blkxchange.com/dashboard'
+      });
+    }
+  }, []);
+
   return (
     <nav className="bg-brand-black text-brand-ivory border-b border-brand-gold">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,8 +21,9 @@ export default function Navigation() {
               BlkXchange™
             </div>
           </Link>
-          
+
           <div className="hidden md:flex items-center space-x-8">
+            <div id="blkx-login"></div>
             <Link 
               to="/marketplace" 
               className="flex items-center space-x-1 hover:text-brand-gold transition-colors"
